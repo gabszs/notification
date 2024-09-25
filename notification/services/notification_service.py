@@ -1,13 +1,17 @@
+import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from typing import Optional
 
-from aiosmtplib import SMTP
 from icecream import ic
 from pydantic import EmailStr
 
 from notification.core.html import html_template
 from notification.core.settings import settings
 from notification.schemas.file_schema import QueueMessage
+
+# na v1, ele manda o nome do arquivo e o endpoint de v1/donwload vai puxar do minio
+# mas nas v2, ele vai retoranr o link de share, vai mandar o v2/downlaod, que vai so redirecionar a request para o servico local do minio
 
 
 class Notification:
@@ -24,17 +28,17 @@ class Notification:
         self.sender_email = sender_email
         self.username = username
         self.password = password
-        self.connection = None
+        self.connection: Optional[smtplib.SMTP] = None
 
-    async def connect(self):
+    def connect(self) -> None:
         if not self.connection:
-            self.connection = await SMTP(self.smtp_server, self.port)
-            await self.connection.starttls()
-            await self.connection.login(self.username, self.password)
+            self.connection = smtplib.SMTP(self.smtp_server, self.port)
+            self.connection.starttls()  # Inicia TLS
+            self.connection.login(self.username, self.password)
 
-    async def is_connection_open(self):
+    def is_connection_open(self) -> bool:
         try:
-            await self.connection.noop()
+            self.connection.noop()  # type: ignore
             return True
         except Exception:
             return False
@@ -51,22 +55,21 @@ class Notification:
     def generate_html(self, mp3_filename: str) -> str:
         return html_template.format(donwload_svc=settings.donwload_svc, mp3_filename=mp3_filename)
 
-    # na v1, ele manda o nome do arquivo e o endpoint de v1/donwload vai puxar do minio
-    # mas nas v2, ele vai retoranr o link de share, vai mandar o v2/downlaod, que vai so redirecionar a request para o servico local do minio
-    async def __call__(self, queue_message: bytes) -> None:
+    def __call__(self, queue_message: bytes) -> bool:
         try:
             message = QueueMessage.model_validate_json(queue_message)
             email_message = self.get_message(message.client_email, message.mp3_filename)
 
-            if not self.connection or not await self.is_connection_open():
-                await self.connect()
-            await self.connection.sendmail(email_message)  # type: ignore
+            if not self.connection or not self.is_connection_open():
+                self.connect()
+            self.connection.sendmail(self.sender_email, message.client_email, email_message.as_string())  # type: ignore
+            ic("Notification successfuly sent")
         except Exception as error:
             ic(error)
             return True
         return False
 
-    async def close(self):
+    def close(self):
         if self.connection:
-            await self.connection.quit()
+            self.connection.quit()
             self.connection = None
