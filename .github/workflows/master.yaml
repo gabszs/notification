@@ -84,7 +84,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
-          token: ${{ secrets.MODIFY_TOKEN }}
+          token: ${{ secrets.ACCOUNT_MODIFY_TOKEN }}
           fetch-depth: 0
 
       - name: Install Poetry
