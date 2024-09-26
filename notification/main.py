@@ -24,7 +24,6 @@ def main():
             else:
                 channel.basic_ack(delivery_tag=method.delivery_tag)
 
-
         channel.basic_consume(queue=settings.audio_queue, on_message_callback=callback)
         print('Waiting for messages in the "audio" queue. To exit press CTRL+C')
         channel.start_consuming()
