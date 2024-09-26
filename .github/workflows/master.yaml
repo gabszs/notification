@@ -104,7 +104,7 @@ jobs:
 
       - name: Update Image Tag in Deployment
         run: |
-          sed -i "s|image: ${{ env.IMAGE_REPO }}/${{ env.IMAGE_NAME }}:.*|image: ${{ env.IMAGE_REPO }}/${{ env.IMAGE_NAME }}:${{ env.NEW_IMAGE_TAG }}|" k8s/deployment.yaml
+          sed -i "s|image: ${{ env.DOCKER_HUB_USERNAME }}/${{ env.IMAGE_NAME }}:.*|image: ${{ env.DOCKER_HUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.NEW_IMAGE_TAG }}|" k8s/deployment.yaml
 
       - name: Check deployment.yaml after sed
         run: cat k8s/deployment.yaml
