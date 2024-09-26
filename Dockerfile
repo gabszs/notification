@@ -23,4 +23,4 @@ COPY notification ./notification
 
 
 
-CMD ["python3", "notification/main.py"]
+CMD ["python3", "main.py"]
