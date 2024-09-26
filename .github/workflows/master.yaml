@@ -109,6 +109,9 @@ jobs:
       - name: Check deployment.yaml after sed
         run: cat k8s/deployment.yaml
 
+      - name: Git Statys
+        run: git status
+
       - name: Git Config
         run: |
           git config --global user.email "ci-bot@ci.com"
