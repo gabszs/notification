@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: notification
-          image: gabzsz/mp3_converter:0.1.4
+          image: gabzsz/mp3_converter:0.1.5
           envFrom:
             - configMapRef:
                 name: notification-configmap
