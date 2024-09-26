@@ -1,6 +1,6 @@
 import pytest
-from app.schemas.Output_Scheme import FileMetadata
-from app.schemas.Output_Scheme import QueueMessage
+from notification.schemas.file_schema import FileMetadata
+from notification.schemas.file_schema import QueueMessage
 
 
 def test_file_metadata_valid():
