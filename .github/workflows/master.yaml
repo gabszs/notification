@@ -104,7 +104,7 @@ jobs:
 
       - name: Update Image Tag in Deployment
         run: |
-          sed -i "s|image: gabzsz/password-generator:.*|image: gabzsz/password-generator:${{ env.NEW_IMAGE_TAG }}|" k8s/deployment.yaml
+          sed -i "s|image: ${{ env.IMAGE_REPO }}/${{ env.IMAGE_NAME }}:.*|image: ${{ env.IMAGE_REPO }}/${{ env.IMAGE_NAME }}:${{ env.NEW_IMAGE_TAG }}|" k8s/deployment.yaml
 
       - name: Git Config
         run: |
@@ -114,5 +114,5 @@ jobs:
       - name: Commit and Push Changes
         run: |
           git add k8s/deployment.yaml
-          git commit -m "Updating the image tag: ${NEW_IMAGE_TAG}"
+          git commit -m "Updating the image tag: ${{ env.NEW_IMAGE_TAG }}"
           git push origin gitops
