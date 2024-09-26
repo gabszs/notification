@@ -109,7 +109,7 @@ jobs:
       - name: Check deployment.yaml after sed
         run: cat k8s/deployment.yaml
 
-      - name: Git Statys
+      - name: Git Status
         run: git status
 
       - name: Git Config
