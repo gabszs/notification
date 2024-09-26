@@ -3,9 +3,9 @@ import sys
 
 from icecream import ic
 
-from notification.core.dependencies import rabbit_connection
-from notification.core.settings import settings
-from notification.services import Notification
+from core.dependencies import rabbit_connection
+from core.settings import settings
+from services import Notification
 
 
 def main():
