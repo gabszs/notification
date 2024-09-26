@@ -20,7 +20,7 @@ ENV VIRTUAL_ENV=/app/.venv \
 COPY --from=builder ${VIRTUAL_ENV} ${VIRTUAL_ENV}
 
 COPY notification ./notification
-
+COPY main.py ./main.py
 
 
 CMD ["python3", "main.py"]
