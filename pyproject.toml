@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "notification"
-version = "0.1.6"
+version = "0.1.9"
 description = ""
 authors = ["GabrielCarvalho <gabrielcarvalho.workk@gmail.com>"]
 readme = "README.md"
