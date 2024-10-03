@@ -20,12 +20,12 @@ def test_queue_message_valid():
         file_name="audio.mp3",
         content_type="video/mp4",  # Assume that QueueMessage accepts video types as content_type
         client_email="client@example.com",
-        donwload_link="song.mp3",
+        download_link="song.mp3",
     )
     assert message.file_name == "audio.mp3"
     assert message.content_type == "video/mp4"
     assert message.client_email == "client@example.com"
-    assert message.donwload_link == "song.mp3"
+    assert message.download_link == "song.mp3"
 
 
 def test_queue_message_invalid_content_type():
