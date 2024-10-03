@@ -43,22 +43,24 @@ class Notification:
         except Exception:
             return False
 
-    def get_message(self, client_email: EmailStr, mp3_filename: str) -> MIMEMultipart:
+    def get_message(self, client_email: EmailStr, donwload_link: str) -> MIMEMultipart:
         message = MIMEMultipart()
         message["From"] = self.sender_email
         message["To"] = client_email
         message["Subject"] = "Success! Your MP3 Is Ready for Download."
-        html_body = self.generate_html(mp3_filename)
+        html_body = self.generate_html(donwload_link)
         message.attach(MIMEText(html_body, "html"))
         return message
 
-    def generate_html(self, mp3_filename: str) -> str:
-        return html_template.format(donwload_svc=settings.donwload_svc, mp3_filename=mp3_filename)
+    def generate_html(self, download_link: str) -> str:
+        return html_template.format(download_link=download_link)
 
     def __call__(self, queue_message: bytes) -> bool:
         try:
             message = QueueMessage.model_validate_json(queue_message)
-            email_message = self.get_message(message.client_email, message.mp3_filename)
+
+            email_message = self.get_message(message.client_email, message.download_link)
+            ic(message.download_link)
 
             if not self.connection or not self.is_connection_open():
                 self.connect()
