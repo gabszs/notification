@@ -5,7 +5,6 @@ metadata:
   namespace: video-to-audio-converter
 data:
   audio_queue: "audio_converter"
-  donwload_svc: ""
   is_prod: "true"
   sender_email: "gabrielcarvalho.workk@gmail.com"
   smtp_server: "smtp.gmail.com"
