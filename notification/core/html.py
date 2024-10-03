@@ -44,7 +44,7 @@ html_template = """
         <h1>Conversion Successful!</h1>
         <p>Your video has been successfully converted into MP3.</p>
         <p>Click the link below to download your MP3 file:</p>
-        <a href="{donwload_svc}/?file_name={mp3_filename}" class="download-link">Download MP3</a>
+        <a href="{download_link}" class="download-link">Download MP3</a>
         <p class="footer">Thank you for using our conversion service!</p>
     </div>
 </body>
@@ -52,3 +52,5 @@ html_template = """
 """
 
 __all__ = ["html_template"]
+
+# <a href="{donwload_svc}/?file_name={mp3_filename}" class="download-link">Download MP3</a>

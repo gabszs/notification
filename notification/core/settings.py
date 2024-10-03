@@ -14,8 +14,6 @@ class Settings(BaseSettings):
 
     is_prod: str
 
-    donwload_svc: str
-
     RABBIT_URL: str
     RABBITMQ_USER: str
     RABBITMQ_PASS: str

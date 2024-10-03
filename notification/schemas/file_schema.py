@@ -25,4 +25,4 @@ class FileMetadata(BaseModel):
 
 class QueueMessage(FileMetadata):
     client_email: str
-    mp3_filename: str
+    download_link: str

@@ -1,4 +1,5 @@
 import pytest
+
 from notification.schemas.file_schema import FileMetadata
 from notification.schemas.file_schema import QueueMessage
 
@@ -19,12 +20,12 @@ def test_queue_message_valid():
         file_name="audio.mp3",
         content_type="video/mp4",  # Assume that QueueMessage accepts video types as content_type
         client_email="client@example.com",
-        mp3_filename="song.mp3",
+        donwload_link="song.mp3",
     )
     assert message.file_name == "audio.mp3"
     assert message.content_type == "video/mp4"
     assert message.client_email == "client@example.com"
-    assert message.mp3_filename == "song.mp3"
+    assert message.donwload_link == "song.mp3"
 
 
 def test_queue_message_invalid_content_type():
@@ -33,7 +34,7 @@ def test_queue_message_invalid_content_type():
             file_name="audio.mp3",
             content_type="application/pdf",  # Invalid content type
             client_email="client@example.com",
-            mp3_filename="song.mp3",
+            donwload_link="song.mp3",
         )
 
 
@@ -43,5 +44,5 @@ def test_queue_message_missing_fields():
             file_name="",  # Invalid file_name (must have min_length=1)
             content_type="video/mp4",
             client_email="client@example.com",
-            mp3_filename="song.mp3",
+            donwload_link="song.mp3",
         )
