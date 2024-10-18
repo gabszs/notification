@@ -2,6 +2,9 @@
 
 Este projeto é um consumidor RabbitMQ que mandas notificacoes via emails com link de download temporário.
 
+## Arquitetura das APIs
+![Architecture Diagram](docs/converter-arch.png)
+
 ## Funcionalidades
 
 - **Consome vídeos de uma fila RabbitMQ**
